@@ -1,0 +1,11 @@
+extends base.pug
+include mixins/diaryList
+
+block content 
+  h2 다이어리 앱에 오신 것을 환영합니다!
+  if(errorMessage)
+    p=errorMessage
+  each diary in diaries 
+    +diaryList(diary)
+  else 
+    p Sorry Nothing Found.

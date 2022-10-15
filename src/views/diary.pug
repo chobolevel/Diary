@@ -1,0 +1,12 @@
+extends base.pug
+
+block content 
+  h1=diary.title
+  p(style="border : 1px solid #000")=diary.memo
+  small 작성일 : #{diary.createdAt}
+  br
+  small 작성자 : #{diary.author}
+  div 
+    a(href=`${diary._id}/update`) 글 수정하기 &rarr;
+    br
+    a(href=`${diary._id}/delete`) 글 삭제하기 &rarr;

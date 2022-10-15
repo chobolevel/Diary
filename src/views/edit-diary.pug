@@ -1,0 +1,8 @@
+extends base
+
+block content 
+ h1 Update My Diary
+ form(method="POST")
+    input(type="text", name="title", value=diary.title)
+    textarea(name="memo", cols="30", rows="10", minLength="20")=diary.memo
+    input(type="submit", value="Save")

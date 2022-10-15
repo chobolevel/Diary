@@ -1,0 +1,7 @@
+mixin diaryList(diary)
+  div 
+    h4
+      a(href=`/diary/${diary._id}`)=diary.title
+    p=diary.createdAt
+    p #{diary.views === 0 ? "VIEW" : "VIEWS"} : #{diary.views} view
+    hr
