@@ -1,0 +1,9 @@
+extends base
+include mixins/diaryList
+
+block content 
+  h1 #{user.nickname}님의 프로필
+  each diary in user.diaries 
+   +diaryList(diary)
+  else 
+    li 현재 등록한 다이어리가 없습니다. 등록해보세요!
