@@ -1,5 +1,6 @@
 import User from "../models/User";
 import bcrypt from "bcrypt";
+import { urlencoded } from "express";
 
 export const getLogin = (req, res) => {
   return res.render("login", {
@@ -85,6 +86,47 @@ export const startGithubLogin = (req, res) => {
   const params = new URLSearchParams(config).toString();
   const finalUrl = `${baseUrl}?${params}`;
   return res.redirect(finalUrl);
+}
+export const finishGithubLogin = async (req, res) => {
+  const baseUrl = "https://github.com/login/oauth/access_token";
+  const config = {
+    client_id : process.env.GH_CLIENTID,
+    client_secret : process.env.GH_CLIENT_SECRET,
+    code : req.query.code,
+  };
+  const params = new URLSearchParams(config).toString();
+  const finalUrl = `${baseUrl}?${params}`;
+  const tokenRequest = await ( await fetch(finalUrl, {
+    method : "POST",
+    headers : {
+      Accept : "application/json",
+    }
+  })).json();
+  if("access_token" in tokenRequest) {
+    const { access_token } = tokenRequest;
+    const apiUrl = "https://api.github.com";
+    const userData = await (
+      await fetch(`${apiUrl}/user`, {
+        headers : {
+          Authorization : `token ${access_token}`
+        }
+      })
+    ).json();
+    const emailData = await (
+      await fetch(`${apiuRl}/user/emails`, {
+        headers : {
+          Authorization : `token ${access_token}`
+        }
+      })
+    ).json();
+    const emailObj = emailData.find(email => email.primary === true && email.verified === true);
+    if(!emailObj) {
+      return res.redirect("/login");
+      //이메일이 존재하지 않은 경우 Login화면으로 보냄
+    }
+    let user = await User.findOne({ email : emailObj.email });
+    //만약 github Email로 존재하는 계정이 없는 경우 처리하기
+  }
 }
 export const see = (req, res) => {
   res.send("See tho profile");
