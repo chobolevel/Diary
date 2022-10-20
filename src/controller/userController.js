@@ -74,6 +74,18 @@ export const logout = (req ,res) => {
   req.session.destroy();
   return res.redirect("/");
 }
+//깃헙으로 로그인하기
+export const startGithubLogin = (req, res) => {
+  const baseUrl = "https://github.com/login/oauth/authorize";
+  const config = {
+    client_id : process.env.GH_CLIENTID,
+    allow_signup : false,
+    scope : "read:user user:email",
+  };
+  const params = new URLSearchParams(config).toString();
+  const finalUrl = `${baseUrl}?${params}`;
+  return res.redirect(finalUrl);
+}
 export const see = (req, res) => {
   res.send("See tho profile");
 }
