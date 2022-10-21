@@ -158,12 +158,56 @@ export const getUpdate = (req, res) => {
   const { user } = req.session;
   return res.render("update-profile", {
     pageTitle: user.nickname,
-    user,
   });
 };
-export const postUpdate = (req, res) => {
-  return res.send("User Profiel Post Update!");
+export const postUpdate = async (req, res) => {
+  const { name, nickname, location } = req.body;
+  const { id } = req.params;
+  const updateUser = await User.findByIdAndUpdate(
+    id,
+    {
+      name,
+      nickname,
+      location,
+    },
+    {
+      new: true,
+    }
+  );
+  req.session.user = updateUser;
+  return res.redirect(`/users/${id}`);
 };
-export const del = (req, res) => {
-  res.send("Delete your account");
+export const getChangePassword = (req, res) => {
+  const { _id, nickname, socialOnly } = req.session.user;
+  if (socialOnly) {
+    return res.status(400).redirect(`/users/${_id}`);
+  }
+  return res.render("c-pass-profile", {
+    pageTitle: nickname,
+  });
+};
+export const postChangePassword = async (req, res) => {
+  const { current_pass, password, passcheck } = req.body;
+  const { id } = req.params;
+  const user = await User.findById(id);
+  if (user.socialOnly) {
+    return res.redirect("");
+  }
+  const ok = await bcrypt.compare(current_pass, user.password);
+  //현재 비밀번호 틀릴 경우
+  if (!ok) {
+    return res.status(400).render("c-pass-profile", {
+      pageTitle: user.nickname,
+      errorMessage: "현재 비밀번호가 올바르지 않습니다.",
+    });
+  }
+  if (password !== passcheck) {
+    return res.status(400).render("c-pass-profile", {
+      pageTitle: user.nickname,
+      errorMessage: "변경할 비밀번호와 확인 비밀번호가 일치하지 않습니다.",
+    });
+  }
+  user.password = password;
+  user.save();
+  return res.redirect("");
 };

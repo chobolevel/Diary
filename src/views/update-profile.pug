@@ -2,8 +2,7 @@ extends base
 
 block content 
   form(method="POST")
-    input(type="password", name="password", required, placeholder="비밀번호")
-    input(type="text", name="name", required, placeholder="이름")
-    input(type="text", name="nickname", required, placeholder="닉네임")
-    input(type="text", name="location", required, placeholder="지역")
+    input(type="text", name="name", required, placeholder="이름", value=loggedInUser.name)
+    input(type="text", name="nickname", required, placeholder="닉네임", value=loggedInUser.nickname)
+    input(type="text", name="location", required, placeholder="지역", value=loggedInUser.location)
     input(type="submit", value="회원 정보 수정")

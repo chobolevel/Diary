@@ -1,10 +1,12 @@
 import express from "express";
 import {
-  del,
   finishGithubLogin,
   see,
   startGithubLogin,
-  update,
+  getUpdate,
+  postUpdate,
+  getChangePassword,
+  postChangePassword,
 } from "../controller/userController";
 import { protectorMiddleware, publicOnlyMiddleware } from "../middlewares";
 
@@ -16,7 +18,11 @@ userRouter.route("/:id([0-9a-f]{24})").all(protectorMiddleware).get(see);
 userRouter
   .route("/:id([0-9a-f]{24})/update")
   .all(protectorMiddleware)
-  .get(update);
-userRouter.route("/:id([0-9a-f]{24})/delete").all(protectorMiddleware).get(del);
-
+  .get(getUpdate)
+  .post(postUpdate);
+userRouter
+  .route("/:id([0-9a-f]{24})/changePassword")
+  .all(protectorMiddleware)
+  .get(getChangePassword)
+  .post(postChangePassword);
 export default userRouter;

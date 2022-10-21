@@ -3,6 +3,12 @@ include mixins/diaryList
 
 block content 
   h1 #{user.nickname}님의 프로필
+  p
+    a(href=`${user.id}/update`) 회원정보 수정하기 &rarr;
+  if !user.socialOnly
+    p
+      a(href=`${user.id}/changePassword`) 비밀번호 수정하기 &rarr;
+  hr
   each diary in user.diaries 
    +diaryList(diary)
   else 
