@@ -2,6 +2,22 @@ mixin diaryList(diary)
   div 
     h4
       a(href=`/diary/${diary._id}`)=diary.title
-    p=diary.createdAt
-    p #{diary.views === 0 ? "VIEW" : "VIEWS"} : #{diary.views} view
-    hr
+    p
+      span #{diary.createdAt.getFullYear()}년 
+      span #{diary.createdAt.getMonth() + 1}월  
+      span #{diary.createdAt.getDate()}일  
+        if(diary.createdAt.getDay() === 1)
+          span 월요일
+        else if(diary.createdAt.getDay() === 2)
+          span 화요일
+        else if(diary.createdAt.getDay() === 3)
+          span 수요일
+        else if(diary.createdAt.getDay() === 4)
+          span 목요일
+        else if(diary.createdAt.getDay() === 5)
+          span 금요일
+        else if(diary.createdAt.getDay() === 6)
+          span 토요일
+        else if(diary.createdAt.getDay() === 7)
+          span 일요일
+    p 조회수 : #{diary.views} 회

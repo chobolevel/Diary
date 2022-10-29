@@ -1,0 +1,14 @@
+extends ../base
+include ../mixins/diaryList
+
+block content 
+  if errorMessage 
+    p=errorMessage
+  form(method="POST")
+    input(type="search", name="title", placeholder="제목으로 검색")
+    input(type="submit", value="검색하기")
+  hr
+  if searchDiary
+    div#search_result
+      h1 검색결과
+       +diaryList(searchDiary)

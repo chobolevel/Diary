@@ -1,0 +1,18 @@
+header 
+  a.logo(href="/") 하루마무리
+  nav
+    ul
+      li 
+        a(href="/diary/search") 검색하기
+      if loggedIn 
+        li
+          a(href="/diary/write") 다이어리 작성하기
+        li 
+          a(href=`/users/${loggedInUser._id}`) #{loggedInUser.nickname}
+        li 
+          a(href="/logout") 로그아웃
+      else
+        li
+          a(href="/login") 로그인 
+        li
+          a(href="/join") 회원가입

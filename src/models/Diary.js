@@ -6,8 +6,9 @@ const diarySchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
   author: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "user" },
   views: { type: Number, default: 0 },
+  imageFile: { type: String },
 });
 
-const Diary = mongoose.model("diary", diarySchema);
+const Diary = mongoose.model("Diary", diarySchema);
 
 export default Diary;

@@ -5,6 +5,7 @@ import MongoStore from "connect-mongo";
 import rootRouter from "./router/rootRouter";
 import userRouter from "./router/userRouter";
 import diaryRouter from "./router/diaryRouter";
+import apiRouter from "./router/apiRouter";
 import { localsMiddleware } from "./middlewares";
 
 const app = express();
@@ -14,17 +15,22 @@ app.set("view engine", "pug");
 app.set("views", process.cwd() + "/src/views");
 app.use(logger);
 app.use(express.urlencoded({ extended: true }));
+
 app.use(
   session({
-    secret : process.env.COOKIE_SECRET,
-    resave : false,
-    saveUninitialized : false,
-    store : MongoStore.create({
-      mongoUrl : process.env.DB_URL,
-    })
+    secret: process.env.COOKIE_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create({
+      mongoUrl: process.env.DB_URL,
+    }),
   })
-)
+);
+
+app.use("/uploads", express.static("uploads"));
+app.use("/assets", express.static("assets"));
 app.use(localsMiddleware);
+app.use("/api", apiRouter);
 app.use("/users", userRouter);
 app.use("/diary", diaryRouter);
 app.use("/", rootRouter);

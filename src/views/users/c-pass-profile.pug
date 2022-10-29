@@ -1,7 +1,9 @@
-extends base
+extends ../base
 
 block content 
   h1 비밀번호 변경하기
+  if errorMessage
+    p=errorMessage
   form(method="POST")
     input(type="password", name="current_pass", placeholder="현재 비밀번호")
     input(type="password", name="password", placeholder="변경할 비밀번호")

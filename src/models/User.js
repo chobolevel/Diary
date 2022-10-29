@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
   diaries: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "diary",
+      ref: "Diary",
     },
   ],
 });

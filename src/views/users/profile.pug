@@ -1,10 +1,12 @@
-extends base
-include mixins/diaryList
+extends ../base
+include ../mixins/diaryList
 
 block content 
+  if user.avatarUrl 
+    img(src="/" + user.avatarUrl, style="width: 150px; height: 150px;")
   h1 #{user.nickname}님의 프로필
   p
-    a(href=`${user.id}/update`) 회원정보 수정하기 &rarr;
+    a(href=`${user.id}/edit`) 회원정보 수정하기 &rarr;
   if !user.socialOnly
     p
       a(href=`${user.id}/changePassword`) 비밀번호 수정하기 &rarr;

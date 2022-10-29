@@ -3,23 +3,23 @@ import bcrypt from "bcrypt";
 import fetch from "node-fetch";
 
 export const getLogin = (req, res) => {
-  return res.render("login", {
-    pageTitle: "Login",
+  return res.render("users/login", {
+    pageTitle: "로그인",
   });
 };
 export const postLogin = async (req, res) => {
   const { id, password } = req.body;
   const user = await User.findOne({ id });
   if (!user) {
-    return res.status(400).render("login", {
-      pageTitle: "Login",
+    return res.status(400).render("users/login", {
+      pageTitle: "로그인",
       errorMessage: "아이디가 존재하지 않습니다.",
     });
   }
   const ok = await bcrypt.compare(password, user.password);
   if (!ok) {
-    return res.status(400).render("login", {
-      pageTitle: "Login",
+    return res.status(400).render("users/login", {
+      pageTitle: "로그인",
       errorMessage: "비밀번호가 올바르지 않습니다.",
     });
   }
@@ -29,8 +29,8 @@ export const postLogin = async (req, res) => {
 };
 //유저 회원가입 컨트롤러
 export const getJoin = (req, res) => {
-  return res.render("join", {
-    pageTitle: "Join",
+  return res.render("users/join", {
+    pageTitle: "회원가입",
   });
 };
 export const postJoin = async (req, res) => {
@@ -38,14 +38,14 @@ export const postJoin = async (req, res) => {
   const { email, password, passcheck, name, nickname, location } = req.body;
   const sameEmailUser = await User.findOne({ email });
   if (sameEmailUser) {
-    return res.status(400).render("join", {
-      pageTitle: "Join",
+    return res.status(400).render("users/join", {
+      pageTitle: "회원가입",
       errorMessage: "이미 이메일이 존재합니다.",
     });
   }
   if (password !== passcheck) {
-    return res.status(400).render("join", {
-      pageTitle: "Join",
+    return res.status(400).render("users/join", {
+      pageTitle: "회원가입",
       errorMessage: "비밀번호와 확인 비밀번호가 일치하지 않습니다.",
     });
   }
@@ -59,8 +59,8 @@ export const postJoin = async (req, res) => {
     });
     return res.redirect("/login");
   } catch (error) {
-    return res.status(400).render("join", {
-      pageTitle: "Join",
+    return res.status(400).render("users/join", {
+      pageTitle: "회원가입",
       errorMessage: error._message,
     });
   }
@@ -147,28 +147,31 @@ export const finishGithubLogin = async (req, res) => {
   return res.redirect("/login");
 };
 export const see = async (req, res) => {
+  //유저정보는 파라미터로만 주고받아야함
   const { id } = req.params;
   const user = await User.findById(id).populate("diaries");
-  return res.render("profile", {
+  return res.render("users/profile", {
     pageTitle: user.nickname,
     user,
   });
 };
-export const getUpdate = (req, res) => {
+export const getEdit = (req, res) => {
   const { user } = req.session;
-  return res.render("update-profile", {
+  return res.render("users/edit-profile", {
     pageTitle: user.nickname,
   });
 };
-export const postUpdate = async (req, res) => {
+export const postEdit = async (req, res) => {
   const { name, nickname, location } = req.body;
   const { id } = req.params;
+  const { file } = req;
   const updateUser = await User.findByIdAndUpdate(
     id,
     {
       name,
       nickname,
       location,
+      avatarUrl: file.path.replace(/[\\]/g, "/"),
     },
     {
       new: true,
@@ -182,7 +185,7 @@ export const getChangePassword = (req, res) => {
   if (socialOnly) {
     return res.status(400).redirect(`/users/${_id}`);
   }
-  return res.render("c-pass-profile", {
+  return res.render("users/c-pass-profile", {
     pageTitle: nickname,
   });
 };
@@ -196,18 +199,18 @@ export const postChangePassword = async (req, res) => {
   const ok = await bcrypt.compare(current_pass, user.password);
   //현재 비밀번호 틀릴 경우
   if (!ok) {
-    return res.status(400).render("c-pass-profile", {
+    return res.status(400).render("users/c-pass-profile", {
       pageTitle: user.nickname,
       errorMessage: "현재 비밀번호가 올바르지 않습니다.",
     });
   }
   if (password !== passcheck) {
-    return res.status(400).render("c-pass-profile", {
+    return res.status(400).render("users/c-pass-profile", {
       pageTitle: user.nickname,
       errorMessage: "변경할 비밀번호와 확인 비밀번호가 일치하지 않습니다.",
     });
   }
   user.password = password;
   user.save();
-  return res.redirect("");
+  return res.redirect("/");
 };
