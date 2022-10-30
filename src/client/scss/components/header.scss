@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Gugi&display=swap');
 
 header {
+  background-color: $menu;
   padding: 15px 30px;
   display: flex;
   justify-content: space-between;
@@ -8,6 +9,7 @@ header {
   .logo {
     font-family: 'Gugi', cursive;
     font-size: 1.5em;
+    color: tomato;
   }
 
   nav {
@@ -19,10 +21,9 @@ header {
       li {
         margin-left: 5px;
         padding-left: 5px;
-        border-left: 1px solid #222;
         font-size: 16px;
         a {
-          color: #222;
+          color: #eee;
         }
       }
     }

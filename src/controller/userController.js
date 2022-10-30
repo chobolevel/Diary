@@ -149,7 +149,12 @@ export const finishGithubLogin = async (req, res) => {
 export const see = async (req, res) => {
   //유저정보는 파라미터로만 주고받아야함
   const { id } = req.params;
-  const user = await User.findById(id).populate("diaries");
+  const user = await User.findById(id).populate({
+    path: "diaries",
+    populate: {
+      path: "author",
+    },
+  });
   return res.render("users/profile", {
     pageTitle: user.nickname,
     user,

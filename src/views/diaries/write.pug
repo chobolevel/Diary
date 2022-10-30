@@ -1,10 +1,13 @@
-extends ../base.pug
+extends ../config/base.pug
 
 block content 
-  h1 #{loggedInUser.nickname}님의 오늘은 어땠나요?
+  h1.msg "#{loggedInUser.nickname}님의 오늘은 어땠나요?"
   form(method="POST",enctype="multipart/form-data")
-    input(type="text", name="title", placeholder="제목")
+    label(for="title") 제목
+    input(type="text", name="title", id="title", placeholder="제목")
+    label(for="memo") 다이어리
     textarea(name="memo", cols="30", rows="10", placeholder="오늘 있었던 일을 자유롭게 작성해보세요!", minLength="20")
-    label(for="imageFile") 오늘의 사진
+    label(for="imageFile") 오늘의 사진을 선택해보세요!
     input(type="file", accept="image/*", name="imageFile", id="imageFile")
     input(type="submit", value="작성하기")
+  

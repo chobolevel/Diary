@@ -1,8 +1,8 @@
 mixin diaryList(diary)
-  div 
-    h4
+  div.diary_list
+    h4.diary_title
       a(href=`/diary/${diary._id}`)=diary.title
-    p
+    p.diary_date
       span #{diary.createdAt.getFullYear()}년 
       span #{diary.createdAt.getMonth() + 1}월  
       span #{diary.createdAt.getDate()}일  
@@ -20,4 +20,6 @@ mixin diaryList(diary)
           span 토요일
         else if(diary.createdAt.getDay() === 7)
           span 일요일
-    p 조회수 : #{diary.views} 회
+    p.diary_author 작성자 : 
+      a(href=`/users/${diary.author.id}`) #{diary.author.nickname}님
+    p.diary_views 조회수 : #{diary.views}회

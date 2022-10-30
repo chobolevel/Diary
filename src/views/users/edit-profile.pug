@@ -1,11 +1,15 @@
-extends ../base
+extends ../config/base.pug
 
 block content
+  h1 
   form(method="POST", enctype="multipart/form-data")
     label(for="avatarUrl") 프로필 사진
     input(type="file", accept="image/*", name="avatarUrl", id="avatarUrl")
-    input(type="text", name="name", required, placeholder="이름", value=loggedInUser.name)
-    input(type="text", name="nickname", required, placeholder="닉네임", value=loggedInUser.nickname)
-    input(type="text", name="location", required, placeholder="지역", value=loggedInUser.location)
+    label(for="name") 이름
+    input(type="text", name="name",id="name", required, placeholder="이름", value=loggedInUser.name)
+    label(for="nickname") 별명
+    input(type="text", name="nickname", id="nickname", required, placeholder="닉네임", value=loggedInUser.nickname)
+    label(for="location") 위치
+    input(type="text", name="location", id="location", required, placeholder="지역", value=loggedInUser.location)
     input(type="submit", value="회원 정보 수정")
     

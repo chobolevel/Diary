@@ -3,7 +3,10 @@ import User from "../models/User";
 
 //홈화면에서 다이어리 모두 보기
 export const home = async (req, res) => {
-  const diaries = await Diary.find({}).sort({ createdAt: "desc" }).limit(10);
+  const diaries = await Diary.find({})
+    .sort({ createdAt: "desc" })
+    .limit(10)
+    .populate("author");
   return res.render("diaries/home", {
     pageTitle: "홈",
     diaries,

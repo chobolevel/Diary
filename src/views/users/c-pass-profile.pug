@@ -1,7 +1,6 @@
-extends ../base
+extends ../config/base.pug
 
 block content 
-  h1 비밀번호 변경하기
   if errorMessage
     p=errorMessage
   form(method="POST")

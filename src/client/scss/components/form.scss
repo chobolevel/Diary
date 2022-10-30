@@ -1,0 +1,35 @@
+form {
+  input {
+    display: block;
+  }
+  input:not(input[type="file"], input[type="submit"]) {
+    all: unset;
+    display: block;
+    width: 40%;
+    height: 30px;
+    border-bottom: 1px solid #ccc;
+  }
+  input[type="submit"] {
+    all: unset;
+    height: 30px;
+    padding: 5px 10px;
+    margin-top: 20px;
+    text-align: center;
+    border: 2px solid #ccc;
+    color: white;
+    border-radius: 10px;
+    background-color: tomato;
+  }
+  input[type="file"] {
+    height: 30px;
+    width: 40%;
+  }
+  label {
+    font-size: 14px;
+    display: block;
+    margin: 30px 0px 10px 5px;
+    font-style: italic;
+    text-decoration: underline;
+    color: #aaa;
+  }
+}

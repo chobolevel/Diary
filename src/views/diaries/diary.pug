@@ -1,8 +1,8 @@
-extends ../base.pug
+extends ../config/base.pug
 
 block content 
   div#diary_container(data-id=diary._id)
-    h1=diary.title
+    h1.msg=diary.title
     if diary.imageFile 
       img(src="/" + diary.imageFile, style="width: 200px; height: 200px;")
     p(style="border : 1px solid #000; width: 400px; height: 100px")=diary.memo
@@ -10,7 +10,7 @@ block content
     br
     small 작성자 : 
       a(href=`/users/${diary.author._id}`) #{diary.author.nickname} 님
-    if loggedInUser._id === diary.author._id
+    if String(loggedInUser._id) === String(diary.author._id)
       div 
         a(href=`${diary._id}/update`) 글 수정하기 &rarr;
         br
