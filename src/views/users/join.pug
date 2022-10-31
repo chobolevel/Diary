@@ -1,13 +1,20 @@
 extends ../config/base.pug
 block content 
-  p #{errorMessage ? errorMessage : null}
+  if errorMessage 
+    p=errorMessage
   form(method="POST")
-    input(type="email", name="email", required, placeholder="이메일(아이디로 사용)")
-    input(type="password", name="password", required, placeholder="비밀번호")
-    input(type="password", name="passcheck", required, placeholder="비밀번호 확인")
-    input(type="text", name="name", required, placeholder="이름")
-    input(type="text", name="nickname", required, placeholder="닉네임")
-    input(type="text", name="location", required, placeholder="지역")
+    p.title "회원가입"
+    label(for="email") 이메일(아이디로 사용)
+    input(type="email", name="email", id="email", required, placeholder="이메일(아이디로 사용)")
+    label(for="password") 비밀번호
+    input(type="password", name="password", id="password", required, placeholder="비밀번호")
+    label(for="passcheck") 비밀번호 확인
+    input(type="password", name="passcheck", id="passcheck", required, placeholder="비밀번호 확인")
+    label(for="name") 성명
+    input(type="text", name="name", id="name", required, placeholder="성명")
+    label(for="nickname") 별명
+    input(type="text", name="nickname", id="nickname", required, placeholder="닉네임")
+    label(for="location") 위치
+    input(type="text", name="location", id="location", required, placeholder="지역")
     input(type="submit", value="회원가입")
-  hr 
-  a(href="/users/github/start") GitHub으로 로그인 &rarr;
+  include ../partials/socialLogin

@@ -1,10 +1,22 @@
-form {
-  display: flex;
-  input {
-    width: 70% !important;
-    margin: 0 auto !important;
+.search_container {
+  form {
+    input {
+      width: 70% !important;
+      height: 40px !important;
+      margin: 0 auto !important;
+    }
+    label {
+      margin-bottom: 50px;
+    }
   }
-  button {
-    all:unset;
+  #search_result {
+    h1 {
+      font-size: 20px;
+      font-weight: bold;
+      color: tomato;
+      margin-top: 50px;
+      margin-left: 10px;
+      margin-bottom: 10px;
+    }
   }
 }

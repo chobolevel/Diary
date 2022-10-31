@@ -2,14 +2,18 @@ extends ../config/base.pug
 include ../mixins/diaryList
 
 block content 
-  if user.avatarUrl 
-    img(src="/" + user.avatarUrl, style="width: 150px; height: 150px;")
-  h1 #{user.nickname}님의 프로필
-  p
-    a(href=`${user.id}/edit`) 회원정보 수정하기 &rarr;
-  if !user.socialOnly
-    p
-      a(href=`${user.id}/changePassword`) 비밀번호 수정하기 &rarr;
+  div.profile_container
+    img.avatar_img(src="/" + user.avatarUrl)
+    div.user_data
+      p.user_data_title #{user.nickname}(#{user.name})님의 프로필
+      hr
+      p.user_data_modify
+        a(href=`${user.id}/edit`) 회원정보 수정하기 &rarr;
+      if !user.socialOnly
+        p.user_data_modify
+          a(href=`${user.id}/changePassword`) 비밀번호 수정하기 &rarr;
+      p.user_data_modify
+        a(href=`${user.id}/delete`) 회원 탈퇴하기 &rarr;
   hr
   each diary in user.diaries 
    +diaryList(diary)

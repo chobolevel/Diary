@@ -9,3 +9,9 @@ block content
     +diaryList(diary)
   else 
     p 아직 다이어리가 없습니다. 작성해보세요!
+  div 
+    div.pageNumber(data-count=diaryCount)
+
+block scripts 
+  script(src="/assets/js/pageNumber.js") 
+    

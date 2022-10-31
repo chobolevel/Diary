@@ -7,7 +7,10 @@ const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
   nickname: { type: String },
   location: { type: String },
-  avatarUrl: { type: String, default: "" },
+  avatarUrl: {
+    type: String,
+    default: "uploads/avatarUrl/c7074c7d42f0a8ee46db97eb92778096",
+  },
   socialOnly: { type: Boolean, default: false },
   diaries: [
     {

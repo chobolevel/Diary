@@ -4,7 +4,11 @@ block content
   if errorMessage
     p=errorMessage
   form(method="POST")
-    input(type="password", name="current_pass", placeholder="현재 비밀번호")
-    input(type="password", name="password", placeholder="변경할 비밀번호")
-    input(type="password", name="passcheck", placeholder="변경할 비밀번호 확인")
+    p.title 비밀번호 수정하기
+    label(for="current_pass") 현재 비밀번호
+    input(type="password", name="current_pass", id="current_pass", placeholder="현재 비밀번호")
+    label(for="password") 변경할 비밀번호
+    input(type="password", name="password", id="password", placeholder="변경할 비밀번호")
+    label(for="passcheck") 변경할 비밀번호 확인
+    input(type="password", name="passcheck", id="passcheck", placeholder="변경할 비밀번호 확인")
     input(type="submit", value="비밀번호 변경하기")

@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Stylish&display=swap');
+#diary_container {
+  max-width: 1000px;
+  margin: 0 auto;
+  .title {
+    color: tomato;
+    font-weight: bold;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  .diary_image {
+    width: 90%;
+    margin-left: 5%;
+    border-radius: 10px;
+  }
+  .diary_memo {
+    box-sizing: border-box;
+    width: 90%;
+    margin-left: 5%;
+    margin-bottom: 20px;
+    padding: 30px 10px;
+    font-family: 'Stylish', sans-serif;
+    font-size: 20px;
+  }
+  .diary_meta_data {
+    width: 90%;
+    margin-left: 5%;
+    margin-bottom: 20px;
+    small {
+      display: block;
+      margin-bottom: 10px;
+      a {
+        text-decoration: underline;
+      }
+    }
+    .modify_link {
+      text-align: right;
+      margin-top: 20px;
+      a {
+        padding: 5px 10px;
+        border: 2px solid white;
+        border-radius: 10000px;
+        background-color: tomato;
+        color: white;
+        transition: all 0.2s ease-in-out;
+        &:hover {
+          border: 2px solid tomato;
+          background-color: white;
+          color: tomato;
+        }
+      }
+    }
+  }
+}

@@ -12,6 +12,9 @@
   .diary_title {
     font-size: 20px;
     font-weight: bold;
+    &:hover {
+      text-decoration: underline;
+    }
   }
   .diary_author {
     a {
@@ -20,5 +23,12 @@
   }
   .diary_views {
     font-size: 14px;
+  }
+}
+.pageNumber {
+  margin: 20px 0px;
+  text-align: center;
+  a {
+    margin-right: 10px;
   }
 }

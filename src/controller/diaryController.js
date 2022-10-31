@@ -3,13 +3,18 @@ import User from "../models/User";
 
 //홈화면에서 다이어리 모두 보기
 export const home = async (req, res) => {
+  const { pageNumber } = req.params;
+  const showPage = 5;
   const diaries = await Diary.find({})
     .sort({ createdAt: "desc" })
-    .limit(10)
+    .skip((pageNumber - 1) * showPage)
+    .limit(showPage)
     .populate("author");
+  const diaryCount = await Diary.find({});
   return res.render("diaries/home", {
     pageTitle: "홈",
     diaries,
+    diaryCount: diaryCount.length / showPage + 1,
   });
 };
 //다이어리 읽기
@@ -48,7 +53,7 @@ export const postEdit = async (req, res) => {
     title,
     memo,
   });
-  return res.redirect("/");
+  return res.redirect("/1");
 };
 //다이어리 삭제하기
 export const del = async (req, res) => {
@@ -60,7 +65,7 @@ export const del = async (req, res) => {
     },
   });
   await Diary.findByIdAndRemove(id);
-  return res.redirect("/");
+  return res.redirect("/1");
 };
 //다이어리 작성하기
 export const getWrite = (req, res) => {
@@ -84,7 +89,7 @@ export const postWrite = async (req, res) => {
     const user = await User.findById(_id);
     user.diaries.push(newDiary._id);
     user.save();
-    return res.redirect("/");
+    return res.redirect("/1");
   } catch (error) {
     console.log(error._message);
     return res.status(400).render("diaries/home", {
@@ -114,7 +119,6 @@ export const postSearch = async (req, res) => {
     pageTitle: "검색 결과",
     searchDiary,
   });
-  return res.end();
 };
 export const registerView = async (req, res) => {
   const { id } = req.params;

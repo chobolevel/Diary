@@ -7,6 +7,7 @@ module.exports = {
   entry: {
     main: BASE_JS + "main.js",
     registerView: BASE_JS + "registerView.js",
+    pageNumber: BASE_JS + "pageNumber.js",
   },
   mode: "development",
   watch: true,

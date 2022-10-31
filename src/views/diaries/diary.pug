@@ -2,19 +2,18 @@ extends ../config/base.pug
 
 block content 
   div#diary_container(data-id=diary._id)
-    h1.msg=diary.title
+    h1.title=diary.title
     if diary.imageFile 
-      img(src="/" + diary.imageFile, style="width: 200px; height: 200px;")
-    p(style="border : 1px solid #000; width: 400px; height: 100px")=diary.memo
-    small 작성일 : #{diary.createdAt.toLocaleString()}
-    br
-    small 작성자 : 
-      a(href=`/users/${diary.author._id}`) #{diary.author.nickname} 님
-    if String(loggedInUser._id) === String(diary.author._id)
-      div 
-        a(href=`${diary._id}/update`) 글 수정하기 &rarr;
-        br
-        a(href=`${diary._id}/delete`) 글 삭제하기 &rarr;
+      img.diary_image(src="/" + diary.imageFile)
+    p.diary_memo=diary.memo
+    div.diary_meta_data
+      small 작성일 : #{diary.createdAt.toLocaleString()}
+      small 작성자 : 
+        a(href=`/users/${diary.author._id}`) #{diary.author.nickname}님
+      if String(loggedInUser._id) === String(diary.author._id)
+       div.modify_link
+          a(href=`${diary._id}/update`) 글 수정하기
+          a(href=`${diary._id}/delete`) 글 삭제하기
 
 block scripts 
   script(src="../assets/js/registerView.js")

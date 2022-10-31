@@ -2,11 +2,14 @@ extends ../config/base.pug
 include ../mixins/diaryList
 
 block content 
-  if errorMessage 
-    p=errorMessage
-  form(method="POST")
-    input(type="search", name="title", placeholder="제목으로 검색")
-  if searchDiary
-    div#search_result
-      h1 검색결과
-       +diaryList(searchDiary)
+  div.search_container
+    if errorMessage 
+      p=errorMessage
+    form(method="POST")
+      h1.title "다이어리 검색하기"
+      label(for="title")
+      input(type="search", name="title", id="title", placeholder="제목으로 검색")
+    if searchDiary
+      div#search_result
+        h1 "검색결과"
+        +diaryList(searchDiary)

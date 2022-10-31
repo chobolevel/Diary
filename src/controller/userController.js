@@ -25,7 +25,7 @@ export const postLogin = async (req, res) => {
   }
   req.session.loggedIn = true;
   req.session.user = user;
-  return res.redirect("/");
+  return res.redirect("/1");
 };
 //유저 회원가입 컨트롤러
 export const getJoin = (req, res) => {
@@ -61,13 +61,13 @@ export const postJoin = async (req, res) => {
   } catch (error) {
     return res.status(400).render("users/join", {
       pageTitle: "회원가입",
-      errorMessage: error._message,
+      errorMessage: "회원생성을 실패하였습니다. 다시 시도해 주시기 바랍니다.",
     });
   }
 };
 export const logout = (req, res) => {
   req.session.destroy();
-  return res.redirect("/");
+  return res.redirect("/1");
 };
 //깃헙으로 로그인하기
 export const startGithubLogin = (req, res) => {
@@ -136,12 +136,12 @@ export const finishGithubLogin = async (req, res) => {
       });
       req.session.loggedIn = true;
       req.session.user = user;
-      return res.redirect("/");
+      return res.redirect("/1");
     }
     //Github Email로 생성된 계정이 있는 경우
     req.session.loggedIn = true;
     req.session.user = user;
-    return res.redirect("/");
+    return res.redirect("/1");
   }
   //토큰이 없는 경우
   return res.redirect("/login");
@@ -218,4 +218,13 @@ export const postChangePassword = async (req, res) => {
   user.password = password;
   user.save();
   return res.redirect("/");
+};
+export const delUser = async (req, res) => {
+  const { id } = req.params;
+  const ok = await User.findByIdAndDelete(id);
+  if (!ok) {
+    return res.status(400).redirect(`/users/${id}`);
+  }
+  req.session.destroy();
+  return res.status(200).redirect("/1");
 };
